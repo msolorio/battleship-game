@@ -1,0 +1,33 @@
+.OpponentGrid {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 600px;
+  border-left: 3px solid #55aaee;
+  border-top: 3px solid #55aaee;
+}
+
+.OpponentGrid .row {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.OpponentGrid .column {
+  flex-grow: 1;
+  border-right: 3px solid #55aaee;
+  border-bottom: 3px solid #55aaee;
+}
+
+.OpponentGrid .unknown {
+  background: #efffff;
+}
+
+.OpponentGrid .miss {
+  background: #aaddff;
+}
+
+.OpponentGrid .hit {
+  background: #ffccdd;
+}
