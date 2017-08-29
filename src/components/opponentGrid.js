@@ -6,16 +6,18 @@ import './opponentGrid.css';
 export function OpponentGrid(props) {
 
   function onBoxClick(e, rowIndex, colIndex) {
-    props.dispatch(clickBox(rowIndex, colIndex, false));
+    props.dispatch(clickBox(rowIndex, colIndex));
   }
 
   function getBoxClassName(value) {
     switch(value) {
       case 0:
-        return 'unknown';
+        return 'untouched-empty';
       case 1:
-        return 'miss';
+        return 'untouched-occupied';
       case 2:
+        return 'miss';
+      case 3:
         return 'hit';
       default:
         console.error('class name unknown');

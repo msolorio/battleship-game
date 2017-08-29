@@ -20,7 +20,8 @@
   border-bottom: 3px solid #55aaee;
 }
 
-.OpponentGrid .unknown {
+.OpponentGrid .untouched-empty,
+.OpponentGrid .untouched-occupied {
   background: #efffff;
 }
 

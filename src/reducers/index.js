@@ -1,31 +1,44 @@
 import * as actions from '../actions';
 
+function O() {
+  return Math.ceil(Math.random() * 2) - 1;
+}
+
 const initialState = {
 
-  // 0 is unknown
-  // 1 is a miss
-  // 2 is a hit
+  // 0 is untouched-empty
+  // 1 is untouched-occupied
+  // 2 is miss
+  // 3 is hit
   opponentGrid: [
-    [1, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 2, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    [O(), O(), O(), O(), O(), O(), O(), O(), O(), O()],
+    [O(), O(), O(), O(), O(), O(), O(), O(), O(), O()],
+    [O(), O(), O(), O(), O(), O(), O(), O(), O(), O()],
+    [O(), O(), O(), O(), O(), O(), O(), O(), O(), O()],
+    [O(), O(), O(), O(), O(), O(), O(), O(), O(), O()],
+    [O(), O(), O(), O(), O(), O(), O(), O(), O(), O()],
+    [O(), O(), O(), O(), O(), O(), O(), O(), O(), O()],
+    [O(), O(), O(), O(), O(), O(), O(), O(), O(), O()],
+    [O(), O(), O(), O(), O(), O(), O(), O(), O(), O()],
+    [O(), O(), O(), O(), O(), O(), O(), O(), O(), O()]
   ]
 }
 
 export const gameReducer = (state=initialState, action) => {
 
+
   if (action.type === actions.CLICK_BOX) {
     // 2 is a hit / 1 is a miss
-    const boxStateCode = action.boxOccupied ? 2 : 1;
     const grid = state.opponentGrid;
-    grid[action.boxRow][action.boxCol] = boxStateCode;
+
+    switch(grid[action.boxRow][action.boxCol]) {
+      case 0:
+        grid[action.boxRow][action.boxCol] = 2;
+        break;
+      case 1:
+        grid[action.boxRow][action.boxCol] = 3;
+        break;
+    }
 
     return Object.assign({}, state, {
       opponentGrid: [...grid]
