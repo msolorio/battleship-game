@@ -2,7 +2,7 @@ import * as actions from '../actions';
 import * as logic from '../logic';
 
 // ships and their lengths
-const ships = [1, 1, 1, 1, 2, 2, 3, 4];
+const ships = [1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 5];
 
 const initialState = {
 

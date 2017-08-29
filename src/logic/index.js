@@ -93,22 +93,23 @@ export function randomlyPlaceAShip(shipLength, grid) {
 
     // if next square exists on the board
     // TODO: check if next square is occupied
-    try {
+    // try {
       console.log(nextSquare.x, nextSquare.y);
 
       if (grid[nextSquare.y] === undefined
       || grid[nextSquare.y][nextSquare.x] === undefined
       || grid[nextSquare.y][nextSquare.x] !== 0) {
-        throw new Error('unable to place ship');
+        return randomlyPlaceAShip(shipLength, grid);
+        // return grid;
+        // throw new Error('unable to place ship');
       };
 
       newShipCoordinates.push(nextSquare);
       currentSquare = nextSquare;
-    }
-    catch(e) {
-      randomlyPlaceAShip(shipLength, grid);
-      return grid;
-    }
+    // }
+    // catch(e) {
+      // return grid;
+    // }
   }
 
   console.log(newShipCoordinates);
