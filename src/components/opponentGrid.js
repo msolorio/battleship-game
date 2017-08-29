@@ -1,15 +1,21 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {clickBox} from '../actions';
+import {clickBox, randomlyPlaceShips} from '../actions';
 import './opponentGrid.css';
 
-export function OpponentGrid(props) {
-
-  function onBoxClick(e, rowIndex, colIndex) {
-    props.dispatch(clickBox(rowIndex, colIndex));
+export class OpponentGrid extends Component {
+  // constructor(props) {
+  //   super(props);
+  // }
+  componentWillMount() {
+    this.props.dispatch(randomlyPlaceShips());
   }
 
-  function getBoxClassName(value) {
+  onBoxClick(e, rowIndex, colIndex) {
+    this.props.dispatch(clickBox(rowIndex, colIndex));
+  }
+
+  getBoxClassName(value) {
     switch(value) {
       case 0:
         return 'untouched-empty';
@@ -24,34 +30,36 @@ export function OpponentGrid(props) {
     }
   }
 
-  function getColumns(row, rowIndex) {
+  getColumns(row, rowIndex) {
     return row.map((column, colIndex) => {
 
       return (
-        <span className={`column ${getBoxClassName(column)}`}
+        <span className={`column ${this.getBoxClassName(column)}`}
           key={colIndex}
-          onClick={(e) => onBoxClick(e, rowIndex, colIndex)}>
+          onClick={(e) => this.onBoxClick(e, rowIndex, colIndex)}>
         </span>
       );
     });
   }
 
-  function getRows() {
-    return props.opponentGrid.map((row, rowIndex) => {
+  getRows() {
+    return this.props.opponentGrid.map((row, rowIndex) => {
       return (
         <div className="row"
           key={rowIndex}>
-          {getColumns(row, rowIndex)}
+          {this.getColumns(row, rowIndex)}
         </div>
       );
     });
   }
 
-  return (
-    <div className="OpponentGrid">
-      {getRows()}
-    </div>
-  );
+  render() {
+    return (
+      <div className="OpponentGrid">
+        {this.getRows()}
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => ({...state});

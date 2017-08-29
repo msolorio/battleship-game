@@ -4,3 +4,8 @@ export const clickBox = (boxRow, boxCol) => ({
   boxRow,
   boxCol
 });
+
+export const RANDOMLY_PLACE_SHIPS = 'RANDOMLY_PLACE_SHIPS';
+export const randomlyPlaceShips = () => ({
+  type: RANDOMLY_PLACE_SHIPS
+});
