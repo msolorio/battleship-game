@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {clickBox, randomlyPlaceShips} from '../actions';
-import './opponentGrid.css';
+import './OpponentGrid.css';
 
 export class OpponentGrid extends Component {
   // constructor(props) {
