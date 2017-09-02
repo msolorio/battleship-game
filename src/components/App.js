@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import PlayerGrid from './playerGrid';
-import OpponentGrid from './opponentGrid';
+import OpponentGrid from './OpponentGrid';
+import './App.css';
 
 class App extends Component {
   render() {

@@ -3,8 +3,8 @@
   flex-direction: column;
   width: 600px;
   height: 600px;
-  border-left: 3px solid #55aaee;
-  border-top: 3px solid #55aaee;
+  border-left: 3px solid #ffff00;
+  border-top: 3px solid #ffff00;
 }
 
 .OpponentGrid .row {
@@ -16,19 +16,19 @@
 
 .OpponentGrid .column {
   flex-grow: 1;
-  border-right: 3px solid #55aaee;
-  border-bottom: 3px solid #55aaee;
+  border-right: 3px solid #ffff00;
+  border-bottom: 3px solid #ffff00;
 }
 
 .OpponentGrid .untouched-empty,
 .OpponentGrid .untouched-occupied {
-  background: #efffff;
+  background: #000000;
 }
 
 .OpponentGrid .miss {
-  background: #aaddff;
+  background: #555500;
 }
 
 .OpponentGrid .hit {
-  background: #ffccdd;
+  background: #550000;
 }

@@ -14,6 +14,19 @@ export function getRandomSquare(grid) {
   };
 }
 
+export function getRandomEmptySquare(shipLength, grid) {
+  const gridLength = grid[0].length;
+  const gridHeight = grid.length;
+  let x;
+  let y;
+  do {
+    x = getRandomNumber(0, gridLength - shipLength);
+    y = getRandomNumber(0, gridHeight - shipLength);
+  } while (isSquareOccupied({x, y}, grid) === true);
+
+  return {x, y};
+}
+
 // returns a random direct, up, right, down, or left
 export function getRandomDirection() {
   switch(getRandomNumber(0, 3)) {
@@ -29,6 +42,17 @@ export function getRandomDirection() {
       console.error('random direction not found');
   }
 };
+
+export function getRandomDownOrRight() {
+  switch(getRandomNumber(0, 1)) {
+    case 0:
+      return 'down';
+    case 1:
+      return 'right';
+    default:
+      console.error('random direction not found');
+  }
+}
 
 // takes in square coordinates
 // returns a boolean signifying if square is occupied
@@ -65,55 +89,56 @@ function getAdjecentSquare(squareCoordinates, direction, grid) {
       break;
   }
 
-
   return {x: newX, y: newY};
 }
 
-// takes in an array of ship coordinates
-// returns the grid with ship placed
-function placeShipGivenCoords(coordsArray, grid) {
-  return coordsArray.reduce((gridAccumulator, coord) => {
-    gridAccumulator[coord.y][coord.x] = 1;
-    return gridAccumulator;
-  }, grid);
+function isSpaceForShipAvailable(startingSquare, shipLength, direction, grid) {
+  const y = startingSquare.y;
+  const x = startingSquare.x;
+
+  if (direction === 'down') {
+    const points = grid.slice(y, y + shipLength).reduce((points, row) => {
+      return points + row[x];
+    }, 0);
+    if (points === 0) return true;
+    return false;
+
+  } else if (direction === 'right') {
+    const points = grid[y].slice(x, x + shipLength).reduce((points, square) => {
+      return points + square;
+    });
+    if (points === 0) return true;
+    return false;
+  }
+  return new Error('error in isSpaceForShipAvailable');
 }
 
-function isSquareOrSurroundingOccupied(square) {};
+function placeShip(startingSquare, shipLength, direction, grid) {
 
-// returns a grid with ships placed up to that point
-export function randomlyPlaceAShip(shipLength, grid) {
-  const newShipCoordinates = [];
-  const randomSquare = getRandomSquare(grid);
-  newShipCoordinates.push(randomSquare);
-  const randomDirection = getRandomDirection();
-
-  let currentSquare = randomSquare;
-  for (let i=1, j=shipLength; i<j; i++) {
-    let nextSquare = getAdjecentSquare(currentSquare, randomDirection, grid);
-
-    // if next square exists on the board
-    // TODO: check if next square is occupied
-    try {
-      console.log(nextSquare.x, nextSquare.y);
-
-      if (grid[nextSquare.y] === undefined
-      || grid[nextSquare.y][nextSquare.x] === undefined
-      || grid[nextSquare.y][nextSquare.x] !== 0) {
-        throw new Error('unable to place ship');
-      };
-
-      newShipCoordinates.push(nextSquare);
-      currentSquare = nextSquare;
+  if (direction === 'right') {
+    for (let i=0, j=shipLength; i<j; i++) {
+      grid[startingSquare.y][startingSquare.x + i] = 1;
     }
-    catch(e) {
-      randomlyPlaceAShip(shipLength, grid);
-      return grid;
+
+  } else if (direction === 'down') {
+    for (let i=0, j=shipLength; i<j; i++) {
+      grid[startingSquare.y + i][startingSquare.x] = 1;
     }
   }
 
-  console.log(newShipCoordinates);
+  return grid;
+}
 
-  return placeShipGivenCoords(newShipCoordinates, grid);
+// returns a grid up to that point with a ship placed
+export function randomlyPlaceAShip(shipLength, grid) {
+    let randomSquare;
+    let randomDirection;
+  do {
+    randomSquare = getRandomEmptySquare(shipLength, grid);
+    randomDirection = getRandomDownOrRight();
+  } while (!isSpaceForShipAvailable(randomSquare, shipLength, randomDirection, grid));
+
+  return placeShip(randomSquare, shipLength, randomDirection, grid);
 };
 
 // returns a grid with ships placed
