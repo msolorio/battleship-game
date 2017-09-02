@@ -3,7 +3,6 @@ export function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// takes in a grid and returns x coordinate and y coordinate for random square
 export function getRandomSquare(grid) {
   const gridLength = grid[0].length;
   const gridHeight = grid.length;
@@ -14,20 +13,19 @@ export function getRandomSquare(grid) {
   };
 }
 
-export function getRandomEmptySquare(shipLength, grid) {
+export function getRandomEmptySquare(shipLength, grid, direction) {
   const gridLength = grid[0].length;
   const gridHeight = grid.length;
   let x;
   let y;
   do {
-    x = getRandomNumber(0, gridLength - shipLength);
-    y = getRandomNumber(0, gridHeight - shipLength);
+    x = getRandomNumber(0, gridLength - (direction === 'right' ? shipLength : 0) - 1);
+    y = getRandomNumber(0, gridHeight - (direction === 'down' ? shipLength : 0) - 1);
   } while (isSquareOccupied({x, y}, grid) === true);
 
   return {x, y};
 }
 
-// returns a random direct, up, right, down, or left
 export function getRandomDirection() {
   switch(getRandomNumber(0, 3)) {
     case 0:
@@ -134,8 +132,8 @@ export function randomlyPlaceAShip(shipLength, grid) {
     let randomSquare;
     let randomDirection;
   do {
-    randomSquare = getRandomEmptySquare(shipLength, grid);
     randomDirection = getRandomDownOrRight();
+    randomSquare = getRandomEmptySquare(shipLength, grid, randomDirection);
   } while (!isSpaceForShipAvailable(randomSquare, shipLength, randomDirection, grid));
 
   return placeShip(randomSquare, shipLength, randomDirection, grid);
