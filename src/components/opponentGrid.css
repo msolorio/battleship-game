@@ -5,6 +5,7 @@
   height: 600px;
   border-left: 3px solid #ffff00;
   border-top: 3px solid #ffff00;
+  cursor: pointer;
 }
 
 .OpponentGrid .row {

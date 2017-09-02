@@ -2,7 +2,7 @@ import * as actions from '../actions';
 import * as logic from '../logic';
 
 // ships and their lengths
-const ships = [2, 2, 2, 3];
+const ships = [1, 1, 1, 1, 2, 2, 3, 3, 4];
 
 const initialState = {
 
@@ -51,15 +51,15 @@ export const gameReducer = (state=initialState, action) => {
   }
 
   if (action.type === actions.RANDOMLY_PLACE_SHIPS) {
+
     const gridClone = initialState.opponentGrid.slice(0);
     const opponentGrid = logic.randomlyPlaceShips(ships, gridClone);
-    // const opponentGrid = logic.randomlyPlaceAShip(5, gridClone);
+
     console.log('opponentGrid:', opponentGrid);
-    //
+
     return Object.assign({}, state, {
       opponentGrid
     });
-    // return state;
   }
 
   return state;
