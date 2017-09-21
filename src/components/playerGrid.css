@@ -1,0 +1,39 @@
+.PlayerGrid {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 600px;
+  border-left: 3px solid #ffff00;
+  border-top: 3px solid #ffff00;
+  cursor: pointer;
+  margin-right: 60px;
+}
+
+.PlayerGrid .row {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.PlayerGrid .column {
+  flex-grow: 1;
+  border-right: 3px solid #ffff00;
+  border-bottom: 3px solid #ffff00;
+}
+
+.PlayerGrid .untouched-empty {
+  background: #000000;
+}
+
+.PlayerGrid .untouched-occupied-player {
+  background: #090955;
+}
+
+.PlayerGrid .miss {
+  background: #555500;
+}
+
+.PlayerGrid .hit {
+  background: #550000;
+}
