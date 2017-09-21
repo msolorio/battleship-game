@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import PlayerGrid from './playerGrid';
 import OpponentGrid from './opponentGrid';
+import './App.css';
 
 class App extends Component {
   render() {

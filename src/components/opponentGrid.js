@@ -4,9 +4,10 @@ import {clickBox, randomlyPlaceShips} from '../actions';
 import './opponentGrid.css';
 
 export class OpponentGrid extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+  }
+
   componentWillMount() {
     this.props.dispatch(randomlyPlaceShips());
   }
